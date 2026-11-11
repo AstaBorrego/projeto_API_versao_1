@@ -1,0 +1,481 @@
+/* Reseta as margens, espaçamentos e define box-sizing universal para cálculo padronizado de layout */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Variáveis CSS para o Tema Claro (Light Mode padrão) */
+:root {
+  --cor-fundo: #f4f6fa;
+  --cor-superficie: #ffffff;
+  --cor-texto: #1a202c;
+  --cor-texto-mutado: #4a5568;
+  --cor-borda: #e2e8f0;
+  --cor-primaria: #e53e3e;
+  --cor-primaria-hover: #c53030;
+  --cor-destaque-foco: #3182ce;
+  --sombra-card: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+  --transicao-padrao: 0.25s ease;
+  --fonte-principal: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+/* Variáveis CSS aplicadas quando a classe .dark-mode é ativada no body */
+body.dark-mode {
+  --cor-fundo: #0f172a;
+  --cor-superficie: #1e293b;
+  --cor-texto: #f8fafc;
+  --cor-texto-mutado: #cbd5e1;
+  --cor-borda: #334155;
+  --cor-primaria: #ef4444;
+  --cor-primaria-hover: #dc2626;
+  --cor-destaque-foco: #60a5fa;
+  --sombra-card: 0 15px 30px -5px rgba(0, 0, 0, 0.45);
+}
+
+/* Tipografia base, cor de fundo e transição suave entre temas */
+body {
+  font-family: var(--fonte-principal);
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: background-color var(--transicao-padrao), color var(--transicao-padrao);
+}
+
+/* Indicador de foco de alto contraste para conformidade WCAG */
+:focus-visible {
+  outline: 3px solid var(--cor-destaque-foco);
+  outline-offset: 3px;
+}
+
+/* Oculta visualmente elementos que devem ser lidos apenas por leitores de tela */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Link de atalho acessível que aparece apenas quando recebe foco via Tab */
+.link-atalho {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  background-color: var(--cor-primaria);
+  color: #ffffff;
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 700;
+  z-index: 9999;
+  transition: top var(--transicao-padrao);
+}
+
+.link-atalho:focus {
+  top: 1rem;
+}
+
+/* Container centralizador de largura máxima */
+.container {
+  width: 100%;
+  max-width: 780px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+/* Cabeçalho fixo no topo com efeito de vidro (backdrop-filter) */
+.cabecalho {
+  background-color: var(--cor-superficie);
+  border-bottom: 1px solid var(--cor-borda);
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.cabecalho-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo-box {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo-box h1 {
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+
+.icone-pokebola {
+  font-size: 1.4rem;
+}
+
+.controles-topo {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Botões utilitários de tema e idioma */
+.btn-controle {
+  background-color: transparent;
+  color: var(--cor-texto);
+  border: 1px solid var(--cor-borda);
+  padding: 0.45rem 0.85rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: background-color var(--transicao-padrao), border-color var(--transicao-padrao);
+}
+
+.btn-controle:hover {
+  background-color: var(--cor-borda);
+}
+
+/* Área principal expandida */
+.principal {
+  flex: 1;
+  padding-top: 2rem;
+  padding-bottom: 2.5rem;
+}
+
+/* Seção de busca */
+.secao-busca {
+  margin-bottom: 1.75rem;
+}
+
+.rotulo-busca {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--cor-texto-mutado);
+}
+
+.grupo-busca {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.grupo-busca input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  border: 2px solid var(--cor-borda);
+  background-color: var(--cor-superficie);
+  color: var(--cor-texto);
+  font-size: 1rem;
+  transition: border-color var(--transicao-padrao);
+}
+
+.grupo-busca input:focus {
+  border-color: var(--cor-destaque-foco);
+  outline: none;
+}
+
+/* Botão principal de ação */
+.btn-primario {
+  background-color: var(--cor-primaria);
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  padding: 0 1.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: background-color var(--transicao-padrao), transform 0.1s ease;
+}
+
+.btn-primario:hover {
+  background-color: var(--cor-primaria-hover);
+}
+
+.btn-primario:active {
+  transform: scale(0.97);
+}
+
+/* Card central do Pokémon */
+.card-pokemon {
+  background-color: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: var(--sombra-card);
+  transition: transform var(--transicao-padrao), box-shadow var(--transicao-padrao);
+}
+
+.card-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 1px solid var(--cor-borda);
+  padding-bottom: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.card-topo h2 {
+  font-size: 1.75rem;
+  text-transform: capitalize;
+  letter-spacing: -0.5px;
+}
+
+.badge-numero {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--cor-texto-mutado);
+  font-family: monospace;
+}
+
+/* Imagem oficial centralizada com animação suave */
+.painel-imagem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 220px;
+  margin-bottom: 1.25rem;
+}
+
+.imagem-pokemon {
+  max-width: 210px;
+  max-height: 210px;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.18));
+  transition: transform 0.35s ease;
+}
+
+.imagem-pokemon:hover {
+  transform: scale(1.08) translateY(-4px);
+}
+
+/* Badges de tipo */
+.container-tipos {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.badge-tipo {
+  padding: 0.35rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.825rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.75px;
+  color: #ffffff;
+}
+
+/* Bloco da descrição oficial com botão do sintetizador de voz */
+.secao-descricao {
+  background-color: var(--cor-fundo);
+  border-radius: 14px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.linha-descricao-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.6rem;
+}
+
+.subtitulo-secao {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.btn-voz {
+  background-color: var(--cor-superficie);
+  color: var(--cor-texto);
+  border: 1px solid var(--cor-borda);
+  padding: 0.35rem 0.75rem;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: background-color var(--transicao-padrao), transform 0.1s ease;
+}
+
+.btn-voz:hover {
+  background-color: var(--cor-borda);
+}
+
+.btn-voz:active {
+  transform: scale(0.96);
+}
+
+.texto-descricao {
+  font-size: 0.95rem;
+  color: var(--cor-texto);
+  line-height: 1.5;
+}
+
+/* Medidas de peso e altura */
+.medidas-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  text-align: center;
+  margin-bottom: 1.75rem;
+}
+
+.item-medida {
+  background-color: var(--cor-fundo);
+  padding: 0.85rem;
+  border-radius: 12px;
+  border: 1px solid var(--cor-borda);
+}
+
+.rotulo-medida {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--cor-texto-mutado);
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.valor-medida {
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+/* Barras de atributos com progresso relativo */
+.container-barras-status {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.linha-status {
+  display: grid;
+  grid-template-columns: 90px 45px 1fr;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.85rem;
+}
+
+.nome-status {
+  font-weight: 700;
+  color: var(--cor-texto-mutado);
+  text-transform: uppercase;
+}
+
+.valor-status {
+  font-weight: 800;
+  text-align: right;
+  font-family: monospace;
+}
+
+.trilho-progresso {
+  background-color: var(--cor-borda);
+  height: 10px;
+  border-radius: 9999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.preenchimento-progresso {
+  height: 100%;
+  border-radius: 9999px;
+  background-color: var(--cor-destaque-foco);
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Rodapé e microinterações nas redes sociais */
+.rodape {
+  background-color: var(--cor-superficie);
+  border-top: 1px solid var(--cor-borda);
+  padding: 1.5rem 0;
+  margin-top: auto;
+}
+
+.rodape-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+
+@media (min-width: 600px) {
+  .rodape-container {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.texto-copyright {
+  font-size: 0.85rem;
+  color: var(--cor-texto-mutado);
+}
+
+.lista-redes-sociais {
+  list-style: none;
+  display: flex;
+  gap: 0.75rem;
+}
+
+.link-social {
+  text-decoration: none;
+  color: var(--cor-texto);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.45rem 0.85rem;
+  border-radius: 10px;
+  border: 1px solid var(--cor-borda);
+  background-color: var(--cor-fundo);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+/* Efeito de elevação magnética no hover */
+.link-social:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+  border-color: transparent;
+}
+
+.link-social.github:hover {
+  background-color: #24292e;
+  color: #ffffff;
+}
+
+.link-social.linkedin:hover {
+  background-color: #0a66c2;
+  color: #ffffff;
+}
+
+.link-social.youtube:hover {
+  background-color: #ff0000;
+  color: #ffffff;
+}

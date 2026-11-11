@@ -1,0 +1,187 @@
+<!-- Declara ao navegador que este documento segue o padrão moderno HTML5 -->
+<!DOCTYPE html>
+
+<!-- Define o idioma padrão inicial como Português do Brasil -->
+<html lang="pt-BR">
+
+<head>
+  <!-- Define a codificação de caracteres UTF-8 (compatível com acentuação e cedilha) -->
+  <meta charset="UTF-8">
+
+  <!-- Garante responsividade para smartphones, tablets e desktops -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Título exibido na aba do navegador -->
+  <title>Pokédex Acessível & Interativa</title>
+
+  <!-- Vincula a folha de estilos externa CSS ao documento -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- Link invisível de acessibilidade para navegação via teclado pular direto ao conteúdo -->
+  <a href="#conteudo-principal" class="link-atalho" id="linkAtalho">Pular para o conteúdo principal</a>
+
+  <!-- Cabeçalho principal da página -->
+  <header class="cabecalho">
+    <div class="container cabecalho-container">
+      <!-- Logotipo e título da aplicação -->
+      <div class="logo-box">
+        <span class="icone-pokebola" aria-hidden="true">🔴</span>
+        <h1 id="txtTituloApp">Pokédex Acessível</h1>
+      </div>
+
+      <!-- Barra de controles: alternadores de tema e idioma -->
+      <div class="controles-topo">
+        <!-- Botão para alternar o idioma entre PT-BR e EN-US -->
+        <button id="btnIdioma" class="btn-controle" type="button" aria-label="Alterar idioma da aplicação">
+          <span aria-hidden="true">🌐</span>
+          <span id="txtBtnIdioma">EN</span>
+        </button>
+
+        <!-- Botão para alternar entre tema claro e tema escuro -->
+        <button id="btnTema" class="btn-controle" type="button" aria-label="Alternar modo escuro ou claro">
+          <span id="iconeTema" aria-hidden="true">🌙</span>
+          <span id="txtBtnTema">Escuro</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Área principal de conteúdo -->
+  <main id="conteudo-principal" class="container principal">
+
+    <!-- Seção de busca com formulário acessível -->
+    <section class="secao-busca" aria-labelledby="labelBusca">
+      <form id="formBusca" class="form-busca" role="search">
+        <!-- Rótulo associado ao campo de texto para leitores de tela -->
+        <label id="labelBusca" for="inputBusca" class="rotulo-busca">Digite o nome ou ID do Pokémon:</label>
+
+        <div class="grupo-busca">
+          <!-- Campo de digitação de nome ou número do Pokémon -->
+          <input 
+            type="text" 
+            id="inputBusca" 
+            placeholder="Ex: Pikachu ou 25" 
+            autocomplete="off" 
+            required 
+            aria-required="true"
+          >
+          <!-- Botão de submissão da busca -->
+          <button type="submit" id="btnBuscar" class="btn-primario">
+            <span aria-hidden="true">🔍</span>
+            <span id="txtBtnBuscar">Buscar</span>
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Região com aria-live para anunciar dinamicamente aos leitores de tela o estado da busca -->
+    <div id="statusRegiao" class="sr-only" aria-live="polite" role="status"></div>
+
+    <!-- Card principal do Pokémon exibido -->
+    <article id="cardPokemon" class="card-pokemon" aria-labelledby="nomePokemon">
+
+      <!-- Cabeçalho do Card: Nome e Número Oficial -->
+      <div class="card-topo">
+        <h2 id="nomePokemon">Carregando...</h2>
+        <span id="numeroPokemon" class="badge-numero">#000</span>
+      </div>
+
+      <!-- Painel visual central: Imagem oficial do Pokémon -->
+      <div class="painel-imagem">
+        <img id="imagemPokemon" src="" alt="Ilustração do Pokémon pesquisado" class="imagem-pokemon">
+      </div>
+
+      <!-- Lista de tipos do Pokémon (Fogo, Água, Grama, etc.) -->
+      <div id="containerTipos" class="container-tipos" aria-label="Tipos do Pokémon">
+        <!-- Badges de tipo são gerados dinamicamente via JS -->
+      </div>
+
+      <!-- Seção de descrição textual e leitor de voz -->
+      <div class="secao-descricao">
+        <div class="linha-descricao-topo">
+          <h3 id="txtTituloDescricao" class="subtitulo-secao">Descrição da Pokédex</h3>
+          <!-- Botão interativo que aciona a Web Speech API -->
+          <button id="btnVoz" class="btn-voz" type="button" aria-label="Ouvir descrição em voz alta">
+            <span id="iconeVoz" aria-hidden="true">🔊</span>
+            <span id="txtBtnVoz">Ouvir</span>
+          </button>
+        </div>
+        <!-- Parágrafo onde a biografia/lore do Pokémon é injetada -->
+        <p id="descricaoPokemon" class="texto-descricao">Aguardando dados...</p>
+      </div>
+
+      <!-- Grid com estatísticas físicas (Altura e Peso) -->
+      <div class="medidas-grid">
+        <div class="item-medida">
+          <span id="txtRotuloAltura" class="rotulo-medida">Altura</span>
+          <span id="valorAltura" class="valor-medida">-- m</span>
+        </div>
+        <div class="item-medida">
+          <span id="txtRotuloPeso" class="rotulo-medida">Peso</span>
+          <span id="valorPeso" class="valor-medida">-- kg</span>
+        </div>
+      </div>
+
+      <!-- Seção de Atributos Base com Barras de Progresso Acessíveis -->
+      <div class="secao-status">
+        <h3 id="txtTituloStatus" class="subtitulo-secao">Atributos Base</h3>
+        <div id="containerBarrasStatus" class="container-barras-status">
+          <!-- As barras de HP, Ataque, Defesa, etc., são construídas via JS -->
+        </div>
+      </div>
+
+    </article>
+  </main>
+
+  <!-- Rodapé Semântico com Links Sociais e Efeitos Hover -->
+  <footer class="rodape">
+    <div class="container rodape-container">
+      <p id="txtDireitosRodape" class="texto-copyright">© 2026 Pokédex Acessível — Projeto Didático.</p>
+
+      <!-- Lista de redes sociais com microinterações em CSS -->
+      <ul class="lista-redes-sociais" aria-label="Redes sociais do projeto">
+        <li>
+          <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="link-social github" aria-label="Acesse nosso perfil no GitHub">
+            <span class="icone-social" aria-hidden="true">💻</span>
+            <span>GitHub</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="link-social linkedin" aria-label="Acesse nosso perfil no LinkedIn">
+            <span class="icone-social" aria-hidden="true">💼</span>
+            <span>LinkedIn</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="link-social youtube" aria-label="Acesse nosso canal no YouTube">
+            <span class="icone-social" aria-hidden="true">▶️</span>
+            <span>YouTube</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- Estrutura oficial exigida para o funcionamento do widget VLibras -->
+  <div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+      <div class="vw-plugin-top-wrapper"></div>
+    </div>
+  </div>
+
+  <!-- Carregamento assíncrono do script oficial do VLibras -->
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script>
+    // Inicialização segura do VLibras após carregamento
+    window.addEventListener('DOMContentLoaded', () => {
+      new window.VLibras.Widget('https://vlibras.gov.br/app');
+    });
+  </script>
+
+  <!-- Script modular da aplicação -->
+  <script src="script.js"></script>
+</body>
+</html>
